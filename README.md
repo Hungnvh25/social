@@ -10,7 +10,14 @@ Go mod init …..
 go get -u github.com/go-chi/chi/v5  
 go install github.com/air-verse/air@latest
 
+-tạo database postgres qua docker
 docker compose up --build
+
+-Tạo table
+go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+migrate create -seq -ext sql -dir ./cmd/migrate/migrations/ create_users
+
+migrate -path=cmd/migrate/migrations/ -database="postgres://admin:adminpassword@localhost/social?sslmode=disable" up
 
 
 ![alt text](image.png)
